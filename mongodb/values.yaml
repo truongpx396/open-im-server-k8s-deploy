@@ -15,7 +15,7 @@ global:
   ##   - myRegistryKeySecretName
   ##
   imagePullSecrets: []
-  storageClass: "mongo-data-sc"
+  # storageClass: "mongo-data-sc"
 
 ## @section Common parameters
 ##
