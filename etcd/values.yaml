@@ -15,7 +15,7 @@ global:
   ##   - myRegistryKeySecretName
   ##
   imagePullSecrets: []
-  storageClass: "etcd-data-sc"
+  # storageClass: "etcd-data-sc"
 
 ## @section Common parameters
 ##
