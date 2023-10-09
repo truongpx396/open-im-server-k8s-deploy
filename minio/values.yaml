@@ -14,7 +14,7 @@ global:
   ##   - myRegistryKeySecretName
   ##
   imagePullSecrets: []
-  storageClass: "minio-data-sc"
+  # storageClass: "minio-data-sc"
 
 ## @section Common parameters
 
