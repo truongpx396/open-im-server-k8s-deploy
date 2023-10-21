@@ -2,36 +2,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: msg-deployment
+  name: third-deployment
 spec:
   selector:
     matchLabels:
-      app: msg
+      app: third 
   replicas: 3 
   template:
     metadata:
       labels:
-        app: msg 
+        app: third
     spec:
       containers:
-      - name: msg
-        image: openim/msg:errcode
-        command: ["./open_im_msg"]
-        args: ["--port", "10130", "--prometheus_port","20130"]
+      - name: rpc_third
+        image: truongpx396/openim-dev-rpc_third:98412d1c-31
         imagePullPolicy: Always
+        command: ["./open_im_third"]
+        args: ["--port", "10200", "--prometheus_port", "20170"]
         ports:
-        - containerPort: 10130
-          name: msg-port
-        - containerPort: 20130
-          name: msg-prome-port
+        - containerPort: 10200
+          name: third-port
         # readinessProbe:
         #   exec:
-        #     command: ["/bin/grpc_health_probe", "-addr=:10130"]
+        #     command: ["/bin/grpc_health_probe", "-addr=:10200"]
         #   initialDelaySeconds: 5
         #   periodSeconds: 10
         # livenessProbe:
         #   exec:
-        #     command: ["/bin/grpc_health_probe", "-addr=:10130"]
+        #     command: ["/bin/grpc_health_probe", "-addr=:10200"]
         #   initialDelaySeconds: 10
         #   periodSeconds: 10
         volumeMounts:
@@ -66,22 +64,22 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - group
+                  - third
               topologyKey: kubernetes.io/hostname
-  strategy:
-    type: RollingUpdate
+  strategy: 
+    type: RollingUpdate 
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: msg
+  name: third
 spec:
   ports:
-    - name: msg-svc-port
+    - name: third-svc-port
       protocol: TCP
-      port: 10130
-      targetPort: msg-port
+      port: 10200
+      targetPort: third-port
   selector:
-    app: msg
+    app: third
   type: ClusterIP  

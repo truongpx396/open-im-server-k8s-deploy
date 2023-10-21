@@ -14,8 +14,8 @@ spec:
         app: conversation
     spec:
       containers:
-        - name: conversation
-          image: openim/conversation:errcode
+        - name: rpc_conversation
+          image: truongpx396/openim-dev-rpc_conversation:98412d1c-31
           imagePullPolicy: Always
           command: ["./open_im_conversation"]
           args: ["--port", "10230", "--prometheus_port","20230"]

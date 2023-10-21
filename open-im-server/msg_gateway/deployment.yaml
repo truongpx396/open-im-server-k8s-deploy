@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: msg-gateway
-        image: openim/msg_gateway:errcode
+        image: truongpx396/openim-dev-msg_gateway:98412d1c-31
         command: ["./open_im_msg_gateway"]
         args: ["--port", "10140", "--ws_port", "10001", "--prometheus_port", "20240"]
         imagePullPolicy: Always

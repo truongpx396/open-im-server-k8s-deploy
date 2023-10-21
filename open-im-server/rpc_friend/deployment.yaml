@@ -2,36 +2,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: group-deployment
+  name: friend-deployment
 spec:
   selector:
     matchLabels:
-      app: group 
-  replicas: 3
+      app: friend
+  replicas: 3 
   template:
     metadata:
       labels:
-        app: group 
+        app: friend 
     spec:
       containers:
-      - name: group
-        image: openim/group:errcode
+      - name: rpc_friend
+        image: truongpx396/openim-dev-rpc_friend:98412d1c-31
         imagePullPolicy: Always
-        command: ["./open_im_group"]
-        args: ["--port", "10150", "--prometheus_port","20150"]
+        command: ["./open_im_friend"]
+        args: ["--port", "10120", "--prometheus_port","20120"]
         ports:
-        - containerPort: 10150
-          name: group-port
-        - containerPort: 20150
-          name: group-p-port
+        - containerPort: 10120
+          name: friend-port
+        - containerPort: 20120
+          name: friend-p-port  
         # readinessProbe:
         #   exec:
-        #     command: ["/bin/grpc_health_probe", "-addr=:10150"]
+        #     command: ["/bin/grpc_health_probe", "-addr=:10120"]
         #   initialDelaySeconds: 5
         #   periodSeconds: 10
         # livenessProbe:
         #   exec:
-        #     command: ["/bin/grpc_health_probe", "-addr=:10150"]
+        #     command: ["/bin/grpc_health_probe", "-addr=:10120"]
         #   initialDelaySeconds: 10
         #   periodSeconds: 10
         volumeMounts:
@@ -66,22 +66,21 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - group
+                  - friend
               topologyKey: kubernetes.io/hostname
   strategy:
     type: RollingUpdate 
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: group
+  name: friend
 spec:
   ports:
-    - name: group-svc-port
+    - name: friend-svc-port
       protocol: TCP
-      port: 10150
-      targetPort: group-port
+      port: 10120
+      targetPort: friend-port
   selector:
-    app: group
+    app: friend
   type: ClusterIP  

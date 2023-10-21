@@ -2,40 +2,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user-deployment
+  name: auth-deployment
 spec:
   selector:
     matchLabels:
-      app: user 
+      app: auth 
   replicas: 3 
   template:
     metadata:
       labels:
-        app: user
+        app: auth
     spec:
       containers:
-      - name: user
-        image: openim/user:errcode
+      - name: rpc_auth
+        image: truongpx396/openim-dev-rpc_auth:98412d1c-31
         imagePullPolicy: Always
-        command: ["./open_im_user"]
-        args: ["--port", "10110"]
+        command: ["./open_im_auth"]
+        args: ["--port", "10160"]
         ports:
-        - containerPort: 10110
-          name: user-port
-        # readinessProbe:
-        #   exec:
-        #     command: ["/bin/grpc_health_probe", "-addr=:10110"]
-        #   initialDelaySeconds: 5
-        #   periodSeconds: 10
-        # livenessProbe:
-        #   exec:
-        #     command: ["/bin/grpc_health_probe", "-addr=:10110"]
-        #   initialDelaySeconds: 10
-        #   periodSeconds: 10
+        - containerPort: 10160
+          name: auth-rpc-port
         volumeMounts:
           - name: config
             mountPath: /Open-IM-Server/config
             readOnly: true
+        # readinessProbe:
+        #   exec:
+        #     command: ["/bin/grpc_health_probe", "-addr=:10160"]
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 10
+        # livenessProbe:
+        #   exec:
+        #     command: ["/bin/grpc_health_probe", "-addr=:10160"]
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 10
         env:
           - name: CONFIG_NAME
             value: "/Open-IM-Server"
@@ -64,22 +64,21 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - user
+                  - auth
               topologyKey: kubernetes.io/hostname
-  strategy: 
+  strategy:
     type: RollingUpdate 
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: user
+  name: auth
 spec:
   ports:
-    - name: user-svc-port
+    - name: auth-svc-port
       protocol: TCP
-      port: 10110
-      targetPort: user-port
+      port: 10160
+      targetPort: auth-port
   selector:
-    app: user
+    app: auth 
   type: ClusterIP  
