@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: rpc_third
-        image: truongpx396/openim-dev-rpc_third:98412d1c-31
+        image: truongpx396/openim-dev-rpc_third:b5fa96bd-43
         imagePullPolicy: Always
         command: ["./open_im_third"]
         args: ["--port", "10200", "--prometheus_port", "20170"]
