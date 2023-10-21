@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: push
-        image: truongpx396/openim-dev-push:98412d1c-31
+        image: truongpx396/openim-dev-push:5fcf641c-35
         imagePullPolicy: Always
         command: ["./open_im_push"]
         args: ["--port", "10170", "--prometheus_port", "20170"]
