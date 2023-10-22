@@ -4,4 +4,4 @@ metadata:
   name: {{ .Release.Name }}
 data:
   config.yaml: |-
-{{ .Files.Get "config.yaml" | indent 4}}
+{{ .Files.Get "notification-config.yaml" | indent 4}}
