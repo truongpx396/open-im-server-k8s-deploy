@@ -17,7 +17,7 @@ spec:
       - name: api
         command: ["./open_im_api"]
         args: ["--port", "10002"]
-        image: truongpx396/openim-dev-api:98412d1c-31
+        image: truongpx396/openim-dev-api:b5fa96bd-44
         imagePullPolicy: Always
         ports:
         - containerPort: 10002
