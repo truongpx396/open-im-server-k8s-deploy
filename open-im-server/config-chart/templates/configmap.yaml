@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{ .Chart.Name }}-configmap
 data:
-  config.json: |-
-{{ .Files.Get "config.json" | indent 4}}
+  config.yaml: |+
+{{ .Files.Get "config.yaml" | indent 4}}
