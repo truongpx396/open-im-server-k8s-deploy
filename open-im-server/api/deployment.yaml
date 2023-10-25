@@ -18,7 +18,7 @@ spec:
         # command: ["./open_im_api"]
         # args: ["--port", "10002"]
         # args: ["-c", "/Open-IM-Server/config"]
-        command: ["./bin/openim-api","-p","10002","-c","/Open-IM-Server/config"]
+        command: ["./bin/openim-api","-p","10002","-c",CONFIG_NAME]
         image: truongpx396/openim-dev-api:98412d1c-31
         imagePullPolicy: Always
         ports:
