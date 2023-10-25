@@ -43,9 +43,11 @@ spec:
           - name: CONFIG_NAME
             value: "/Open-IM-Server"
         resources:
-        #   requests:
-        #     memory: "512Mi"
-        #     cpu: 300m
+          requests:
+            memory: "100Mi"
+            cpu: 70m
+            # memory: "512Mi"
+            # cpu: 300m
           limits:
             memory: "250Mi"
             cpu: 100m
