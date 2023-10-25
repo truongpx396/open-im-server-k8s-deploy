@@ -14,27 +14,7 @@ spec:
         app: api 
     spec:
       containers:
-      - name: test-projected-volume
-        image: busybox:1.28
-        args:
-        - sleep
-        - "86400"
-        volumeMounts:
-          - name: config
-            mountPath: /openim/config
-            readOnly: true
-        resources:
-          requests:
-            memory: "100Mi"
-            cpu: 70m
-            # memory: "512Mi"
-            # cpu: 300m
-          limits:
-            memory: "250Mi"
-            cpu: 100m
-            # memory: "1024Mi"
-            # cpu: 600m
-      - name: opemim-api
+      - name: api
         image: truongpx396/openim-dev-api:98412d1c-31
         imagePullPolicy: Always
         ports:
@@ -106,3 +86,48 @@ spec:
   selector:
     app: api
   type: ClusterIP  
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: busy-deployment
+spec:
+  selector:
+    matchLabels:
+      app: busy
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: busy 
+    spec:
+      containers:
+      - name: test-projected-volume
+        image: busybox:1.28
+        args:
+        - sleep
+        - "86400"
+        volumeMounts:
+          - name: config
+            mountPath: /openim/config
+            readOnly: true
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: 70m
+            # memory: "512Mi"
+            # cpu: 300m
+          limits:
+            memory: "250Mi"
+            cpu: 100m
+            # memory: "1024Mi"
+            # cpu: 600m
+      volumes:
+        - name: config
+          projected:
+            sources:
+            - configMap:
+                name: config
+            - configMap:
+                name: notification
