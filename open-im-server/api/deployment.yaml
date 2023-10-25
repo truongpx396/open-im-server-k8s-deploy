@@ -59,9 +59,9 @@ spec:
           projected:
             sources:
             - configMap:
-                name: openim-config
+                name: config
             - configMap:
-                name: openim-notification-config
+                name: notification
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
