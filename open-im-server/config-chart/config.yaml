@@ -45,7 +45,7 @@ redis:
   # enableCluster: true #如果外部redis以集群方式启动，需要打开此开关
   address: [ openim-redis-master.openim-dependencies.svc.cluster.local:6379 ]
   username: ''
-  password: ''
+  password: 'openIM123'
 
 kafka:
   SASLUserName:
