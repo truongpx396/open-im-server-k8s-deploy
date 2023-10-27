@@ -135,7 +135,7 @@ object:
     externalId:                               #角色扩展Id
     roleSessionName:                          #角色SESSION名称
 
-rpcport: #rpc服务端口 默认即可
+rpcPort: #rpc服务端口 默认即可
   openImUserPort: [ 10110 ]
   openImFriendPort: [ 10120 ]
   openImMessagePort: [ 10130 ]
