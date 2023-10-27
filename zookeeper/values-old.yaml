@@ -1,6 +1,3 @@
-# Copyright VMware, Inc.
-# SPDX-License-Identifier: APACHE-2.0
-
 ## @section Global parameters
 ## Global Docker image parameters
 ## Please, note that this will override the image parameters, including dependencies, configured to use the global value
@@ -79,7 +76,7 @@ diagnosticMode:
 image:
   registry: docker.io
   repository: bitnami/zookeeper
-  tag: 3.9.1-debian-11-r1
+  tag: 3.8.1-debian-11-r15
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -106,21 +103,21 @@ auth:
     enabled: false
     ## @param auth.client.clientUser User that will use ZooKeeper clients to auth
     ##
-    clientUser: ""
+    clientUser: "kafkaUser"
     ## @param auth.client.clientPassword Password that will use ZooKeeper clients to auth
     ##
-    clientPassword: ""
+    clientPassword: "openIMExamplePwd"
     ## @param auth.client.serverUsers Comma, semicolon or whitespace separated list of user to be created
     ## Specify them as a string, for example: "user1,user2,admin"
     ##
-    serverUsers: ""
+    serverUsers: "kafkaUser"
     ## @param auth.client.serverPasswords Comma, semicolon or whitespace separated list of passwords to assign to users when created
     ## Specify them as a string, for example: "pass4user1, pass4user2, pass4admin"
     ##
-    serverPasswords: ""
+    serverPasswords: "kafkaUser"
     ## @param auth.client.existingSecret Use existing secret (ignores previous passwords)
     ##
-    existingSecret: ""
+    existingSecret: "openIMExamplePwd"
   quorum:
     ## @param auth.quorum.enabled Enable ZooKeeper server-server authentication. It uses SASL/Digest-MD5
     ##
@@ -240,7 +237,7 @@ args: []
 
 ## @param replicaCount Number of ZooKeeper nodes
 ##
-replicaCount: 1
+replicaCount: 3
 ## @param containerPorts.client ZooKeeper client container port
 ## @param containerPorts.tls ZooKeeper TLS container port
 ## @param containerPorts.follower ZooKeeper follower container port
@@ -320,10 +317,8 @@ lifecycleHooks: {}
 resources:
   limits: {}
   requests:
-    # memory: 256Mi
-    # cpu: 250m
-    memory: 128Mi
-    cpu: 125m
+    memory: 256Mi
+    cpu: 250m
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext.enabled Enabled ZooKeeper pods' Security Context
@@ -351,7 +346,8 @@ hostAliases: []
 ## @param podLabels Extra labels for ZooKeeper pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
-podLabels: {}
+podLabels: 
+  zookeeper: "true"
 ## @param podAnnotations Annotations for ZooKeeper pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
@@ -387,7 +383,18 @@ nodeAffinityPreset:
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ## Note: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set
 ##
-affinity: {}
+affinity: 
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/name
+            operator: In
+            values:
+            - zookeeper
+        topologyKey: kubernetes.io/hostname
 ## @param nodeSelector Node labels for pod assignment
 ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
@@ -603,7 +610,7 @@ persistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  storageClass: ""
+  storageClass: "zookeeper-data-sc"
   ## @param persistence.accessModes PVC Access modes
   ##
   accessModes:
@@ -664,8 +671,8 @@ volumePermissions:
   ##
   image:
     registry: docker.io
-    repository: bitnami/os-shell
-    tag: 11-debian-11-r90
+    repository: bitnami/bitnami-shell
+    tag: 11-debian-11-r98
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -882,3 +889,4 @@ tls:
   resources:
     limits: {}
     requests: {}
+
