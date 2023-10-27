@@ -16,8 +16,8 @@ spec:
       containers:
       - name: msg-gateway
         image: truongpx396/openim-dev-msg_gateway:b24dd770-32
-        command: ["./open_im_msg_gateway"]
-        args: ["--port", "10140", "--ws_port", "10001", "--prometheus_port", "20240"]
+        # command: ["./open_im_msg_gateway"]
+        # args: ["--port", "10140", "--ws_port", "10001", "--prometheus_port", "20240"]
         imagePullPolicy: Always
         ports:
         - name: rpc-port
@@ -42,7 +42,7 @@ spec:
         #   periodSeconds: 10
         volumeMounts:
           - name: config
-            mountPath: /Open-IM-Server/config
+            mountPath: /openim/config
             readOnly: true
         env:
           - name: CONFIG_NAME
@@ -61,9 +61,9 @@ spec:
           projected:
             sources:
             - configMap:
-                name: openim-config
+                name: config
             - configMap:
-                name: openim-notification-config
+                name: notification
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
