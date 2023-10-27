@@ -17,15 +17,15 @@ spec:
       containers:
       - name: msg-transfer
         image: truongpx396/openim-dev-msg_transfer:5fcf641c-34
-        command: ["./open_im_msg_transfer"]
-        args: ["--prometheus_port", "21400"]
+        # command: ["./open_im_msg_transfer"]
+        # args: ["--prometheus_port", "21400"]
         imagePullPolicy: Always
         ports:
         - name: tran-prome-port
           containerPort: 21400
         volumeMounts:
           - name: config
-            mountPath: /Open-IM-Server/config
+            mountPath: /openim/config
             readOnly: true
         env:
           - name: CONFIG_NAME
@@ -44,9 +44,9 @@ spec:
           projected:
             sources:
             - configMap:
-                name: openim-config
+                name: config
             - configMap:
-                name: openim-notification-config
+                name: notification
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
