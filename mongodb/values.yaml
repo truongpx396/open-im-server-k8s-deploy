@@ -161,7 +161,7 @@ auth:
   ## @param auth.rootPassword MongoDB(&reg;) root password
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mongodb#setting-the-root-user-and-password-on-first-run
   ##
-  rootPassword: "openIM123"
+  rootPassword: 'openIM123'
   ## MongoDB(&reg;) custom users and databases
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mongodb#creating-a-user-and-database-on-first-run
   ## @param auth.usernames List of custom users to be created during the initialization
@@ -169,7 +169,7 @@ auth:
   ## @param auth.databases List of custom databases to be created during the initialization
   ##
   usernames: [root]
-  passwords: []
+  passwords: ['openIM123']
   databases: [openIM_v3]
   ## @param auth.username DEPRECATED: use `auth.usernames` instead
   ## @param auth.password DEPRECATED: use `auth.passwords` instead
