@@ -34,7 +34,7 @@ mysql:
 
 mongo:
   uri: ''
-  address: [ openim-mongo.openim-dependencies.svc.cluster.local:27017 ]
+  address: [ openim-mongodb.openim-dependencies.svc.cluster.local:27017 ]
   database: openIM_v3
   username: root
   password: openIM123
