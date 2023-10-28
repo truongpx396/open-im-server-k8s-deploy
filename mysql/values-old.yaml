@@ -1,6 +1,3 @@
-# Copyright VMware, Inc.
-# SPDX-License-Identifier: APACHE-2.0
-
 ## @section Global parameters
 ## Global Docker image parameters
 ## Please, note that this will override the image parameters, including dependencies, configured to use the global value
@@ -18,7 +15,7 @@ global:
   ##   - myRegistryKeySecretName
   ##
   imagePullSecrets: []
-  storageClass: ""
+  # storageClass: "mysql-data-sc"
 
 ## @section Common parameters
 ##
@@ -74,9 +71,9 @@ diagnosticMode:
 
 ## Bitnami MySQL image
 ## ref: https://hub.docker.com/r/bitnami/mysql/tags/
-## @param image.registry [default: REGISTRY_NAME] MySQL image registry
-## @param image.repository [default: REPOSITORY_NAME/mysql] MySQL image repository
-## @skip image.tag MySQL image tag (immutable tags are recommended)
+## @param image.registry MySQL image registry
+## @param image.repository MySQL image repository
+## @param image.tag MySQL image tag (immutable tags are recommended)
 ## @param image.digest MySQL image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
 ## @param image.pullPolicy MySQL image pull policy
 ## @param image.pullSecrets Specify docker-registry secret names as an array
@@ -85,7 +82,7 @@ diagnosticMode:
 image:
   registry: docker.io
   repository: bitnami/mysql
-  tag: 8.0.35-debian-11-r0
+  tag: 8.0.32-debian-11-r14
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -102,17 +99,17 @@ image:
   ## Set to true if you would like to see extra information on logs
   ## It turns BASH and/or NAMI debugging in the image
   ##
-  debug: false
+  debug: true
 ## @param architecture MySQL architecture (`standalone` or `replication`)
 ##
-architecture: standalone
+architecture: replication
 ## MySQL Authentication parameters
 ##
 auth:
   ## @param auth.rootPassword Password for the `root` user. Ignored if existing secret is provided
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mysql#setting-the-root-password-on-first-run
   ##
-  rootPassword: ""
+  rootPassword: "openIMExamplePwd"
   ## @param auth.createDatabase Whether to create the .Values.auth.database or not
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mysql#creating-a-database-on-first-run
   ##
@@ -120,14 +117,14 @@ auth:
   ## @param auth.database Name for a custom database to create
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mysql#creating-a-database-on-first-run
   ##
-  database: "openIM_v3"
+  database: "my_database"
   ## @param auth.username Name for a custom user to create
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mysql#creating-a-database-user-on-first-run
   ##
-  username: "root"
+  username: ""
   ## @param auth.password Password for the new user. Ignored if existing secret is provided
   ##
-  password: "openIM123"
+  password: ""
   ## @param auth.replicationUser MySQL replication user
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mysql#setting-up-a-replication-cluster
   ##
@@ -150,10 +147,6 @@ auth:
   ##   replicator: /vault/secrets/mysql-replicator
   ##
   customPasswordFiles: {}
-  ## @param auth.defaultAuthenticationPlugin Sets the default authentication plugin, by default it will use `mysql_native_password`
-  ## NOTE: `mysql_native_password` will be deprecated in future mysql version and it is used here for compatibility with previous version. If you want to use the new default authentication method set it to `caching_sha2_password`.
-  ##
-  defaultAuthenticationPlugin: ""
 ## @param initdbScripts Dictionary of initdb scripts
 ## Specify dictionary of scripts to be run at first boot
 ## Example:
@@ -166,18 +159,6 @@ initdbScripts: {}
 ## @param initdbScriptsConfigMap ConfigMap with the initdb scripts (Note: Overrides `initdbScripts`)
 ##
 initdbScriptsConfigMap: ""
-## @param startdbScripts Dictionary of startdb scripts
-## Specify dictionary of scripts to be run every time the container is started
-## Example:
-## startdbScripts:
-##   my_start_script.sh: |
-##      #!/bin/bash
-##      echo "Do something."
-##
-startdbScripts: {}
-## @param startdbScriptsConfigMap ConfigMap with the startdb scripts (Note: Overrides `startdbScripts`)
-##
-startdbScriptsConfigMap: ""
 
 ## @section MySQL Primary parameters
 ##
@@ -204,7 +185,7 @@ primary:
   ##
   configuration: |-
     [mysqld]
-    default_authentication_plugin={{- .Values.auth.defaultAuthPlugin | default "mysql_native_password" }}
+    default_authentication_plugin=mysql_native_password
     skip-name-resolve
     explicit_defaults_for_timestamp
     basedir=/opt/bitnami/mysql
@@ -218,7 +199,9 @@ primary:
     pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
     log-error=/opt/bitnami/mysql/logs/mysqld.log
     character-set-server=UTF8
+    collation-server=utf8_general_ci
     slow_query_log=0
+    slow_query_log_file=/opt/bitnami/mysql/logs/mysqld.log
     long_query_time=10.0
 
     [client]
@@ -275,7 +258,27 @@ primary:
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ## Note: podAffinityPreset, podAntiAffinityPreset, and  nodeAffinityPreset will be ignored when it's set
   ##
-  affinity: {}
+  affinity:
+    podAntiAffinity:
+    # podAntiAffinity:
+    #   requiredDuringSchedulingIgnoredDuringExecution:
+    #     - topologyKey: kubernetes.io/hostname
+    #       labelSelector:
+    #         matchExpressions: 
+    #           - key: mysql
+    #             operator: In 
+    #             values: 
+    #             - "true"
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+              - mysql
+          topologyKey: kubernetes.io/hostname
   ## @param primary.nodeSelector Node labels for MySQL primary pods assignment
   ## ref: https://kubernetes.io/docs/user-guide/node-selection/
   ##
@@ -320,19 +323,11 @@ primary:
   ## @param primary.containerSecurityContext.enabled MySQL primary container securityContext
   ## @param primary.containerSecurityContext.runAsUser User ID for the MySQL primary container
   ## @param primary.containerSecurityContext.runAsNonRoot Set MySQL primary container's Security Context runAsNonRoot
-  ## @param primary.containerSecurityContext.allowPrivilegeEscalation Set container's privilege escalation
-  ## @param primary.containerSecurityContext.capabilities.drop Set container's Security Context runAsNonRoot
-  ## @param primary.containerSecurityContext.seccompProfile.type Set Client container's Security Context seccomp profile
   ##
   containerSecurityContext:
     enabled: true
     runAsUser: 1001
     runAsNonRoot: true
-    allowPrivilegeEscalation: false
-    capabilities:
-      drop: ["ALL"]
-    seccompProfile:
-      type: "RuntimeDefault"
   ## MySQL primary container's resource requests and limits
   ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
   ## We usually recommend not to specify default resources and to leave this as a conscious
@@ -465,7 +460,7 @@ primary:
       - ReadWriteOnce
     ## @param primary.persistence.size MySQL primary persistent volume size
     ##
-    size: 8Gi
+    size: 100Gi
     ## @param primary.persistence.selector Selector to match an existing Persistent Volume
     ## selector:
     ##   matchLabels:
@@ -559,7 +554,8 @@ primary:
     maxUnavailable: ""
   ## @param primary.podLabels MySQL Primary pod label. If labels are same as commonLabels , this will take precedence
   ##
-  podLabels: {}
+  podLabels: 
+    mysql: "true"
 
 ## @section MySQL Secondary parameters
 ##
@@ -603,7 +599,9 @@ secondary:
     pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
     log-error=/opt/bitnami/mysql/logs/mysqld.log
     character-set-server=UTF8
+    collation-server=utf8_general_ci
     slow_query_log=0
+    slow_query_log_file=/opt/bitnami/mysql/logs/mysqld.log
     long_query_time=10.0
 
     [client]
@@ -706,19 +704,11 @@ secondary:
   ## @param secondary.containerSecurityContext.enabled MySQL secondary container securityContext
   ## @param secondary.containerSecurityContext.runAsUser User ID for the MySQL secondary container
   ## @param secondary.containerSecurityContext.runAsNonRoot Set MySQL secondary container's Security Context runAsNonRoot
-  ## @param secondary.containerSecurityContext.allowPrivilegeEscalation Set container's privilege escalation
-  ## @param secondary.containerSecurityContext.capabilities.drop Set container's Security Context runAsNonRoot
-  ## @param secondary.containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
   ##
   containerSecurityContext:
     enabled: true
     runAsUser: 1001
     runAsNonRoot: true
-    allowPrivilegeEscalation: false
-    capabilities:
-      drop: ["ALL"]
-    seccompProfile:
-      type: "RuntimeDefault"
   ## MySQL secondary container's resource requests and limits
   ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
   ## We usually recommend not to specify default resources and to leave this as a conscious
@@ -1029,17 +1019,17 @@ volumePermissions:
   ## @param volumePermissions.enabled Enable init container that changes the owner and group of the persistent volume(s) mountpoint to `runAsUser:fsGroup`
   ##
   enabled: false
-  ## @param volumePermissions.image.registry [default: REGISTRY_NAME] Init container volume-permissions image registry
-  ## @param volumePermissions.image.repository [default: REPOSITORY_NAME/os-shell] Init container volume-permissions image repository
-  ## @skip volumePermissions.image.tag Init container volume-permissions image tag (immutable tags are recommended)
+  ## @param volumePermissions.image.registry Init container volume-permissions image registry
+  ## @param volumePermissions.image.repository Init container volume-permissions image repository
+  ## @param volumePermissions.image.tag Init container volume-permissions image tag (immutable tags are recommended)
   ## @param volumePermissions.image.digest Init container volume-permissions image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
   ## @param volumePermissions.image.pullPolicy Init container volume-permissions image pull policy
   ## @param volumePermissions.image.pullSecrets Specify docker-registry secret names as an array
   ##
   image:
     registry: docker.io
-    repository: bitnami/os-shell
-    tag: 11-debian-11-r90
+    repository: bitnami/bitnami-shell
+    tag: 11-debian-11-r94
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -1063,9 +1053,9 @@ metrics:
   ## @param metrics.enabled Start a side-car prometheus exporter
   ##
   enabled: false
-  ## @param metrics.image.registry [default: REGISTRY_NAME] Exporter image registry
-  ## @param metrics.image.repository [default: REPOSITORY_NAME/mysqld-exporter] Exporter image repository
-  ## @skip metrics.image.tag Exporter image tag (immutable tags are recommended)
+  ## @param metrics.image.registry Exporter image registry
+  ## @param metrics.image.repository Exporter image repository
+  ## @param metrics.image.tag Exporter image tag (immutable tags are recommended)
   ## @param metrics.image.digest Exporter image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
   ## @param metrics.image.pullPolicy Exporter image pull policy
   ## @param metrics.image.pullSecrets Specify docker-registry secret names as an array
@@ -1073,7 +1063,7 @@ metrics:
   image:
     registry: docker.io
     repository: bitnami/mysqld-exporter
-    tag: 0.15.0-debian-11-r70
+    tag: 0.14.0-debian-11-r96
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -1098,14 +1088,12 @@ metrics:
   ## Mysqld Prometheus exporter liveness and readiness probes
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
   ## @param metrics.service.type Kubernetes service type for MySQL Prometheus Exporter
-  ## @param metrics.service.clusterIP Kubernetes service clusterIP for MySQL Prometheus Exporter
   ## @param metrics.service.port MySQL Prometheus Exporter service port
   ## @param metrics.service.annotations [object] Prometheus exporter service annotations
   ##
   service:
     type: ClusterIP
     port: 9104
-    clusterIP: ""
     annotations:
       prometheus.io/scrape: "true"
       prometheus.io/port: "{{ .Values.metrics.service.port }}"
@@ -1276,3 +1264,4 @@ metrics:
     ##      summary: MariaDB instance is down
     ##
     rules: []
+

@@ -10,10 +10,14 @@ zookeeper:
   password:
 
 mysql:
-  dbMysqlAddress: [ mysql-cluster-primary.mysql.svc.cluster.local:3306 ] #mysql地址 目前仅支持单机，默认即可
-  dbMysqlUserName: root #mysql用户名，建议修改
-  dbMysqlPassword: openIMExamplePwd # mysql密码，建议修改
-  dbMysqlDatabaseName: openIM_v2 #默认即可
+  address: [ 172.28.0.1:13306 ]
+  username: root
+  password: openIM123
+  database: openIM_v3
+  # dbMysqlAddress: [ mysql-cluster-primary.mysql.svc.cluster.local:3306 ] #mysql地址 目前仅支持单机，默认即可
+  # dbMysqlUserName: root #mysql用户名，建议修改
+  # dbMysqlPassword: openIMExamplePwd # mysql密码，建议修改
+  # dbMysqlDatabaseName: openIM_v2 #默认即可
   dbTableName: eMsg #默认即可
   dbMsgTableNum: 1
   dbMaxOpenConns: 100

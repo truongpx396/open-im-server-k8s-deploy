@@ -11,17 +11,26 @@ zookeeper:
   password:
 
 mysql:
-  dbMysqlAddress: [ mysql-cluster-primary.mysql.svc.cluster.local:3306 ] #mysql地址 目前仅支持单机，默认即可
-  dbMysqlUserName: root #mysql用户名，建议修改
-  dbMysqlPassword: openIMExamplePwd # mysql密码，建议修改
-  dbMysqlDatabaseName: openIM_v2 #默认即可
-  dbTableName: eMsg #默认即可
-  dbMsgTableNum: 1
-  dbMaxOpenConns: 100
-  dbMaxIdleConns: 10
-  dbMaxLifeTime: 5
-  logLevel: 4 #1=slient 2=error 3=warn 4=info
+  address: [ openim-mysql.openim-dependencies.svc.cluster.local:2181:3306 ]
+  username: root
+  password: openIM123
+  database: openIM_v3
+  maxOpenConn: 1000
+  maxIdleConn: 100
+  maxLifeTime: 60
+  logLevel: 4
   slowThreshold: 500
+  # dbMysqlAddress: [ mysql-cluster-primary.mysql.svc.cluster.local:3306 ] #mysql地址 目前仅支持单机，默认即可
+  # dbMysqlUserName: root #mysql用户名，建议修改
+  # dbMysqlPassword: openIMExamplePwd # mysql密码，建议修改
+  # dbMysqlDatabaseName: openIM_v2 #默认即可
+  # dbTableName: eMsg #默认即可
+  # dbMsgTableNum: 1
+  # dbMaxOpenConns: 100
+  # dbMaxIdleConns: 10
+  # dbMaxLifeTime: 5
+  # logLevel: 4 #1=slient 2=error 3=warn 4=info
+  # slowThreshold: 500
 
 mongo:
   dbUri: ""#当dbUri值不为空则直接使用该值
