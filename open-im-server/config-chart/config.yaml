@@ -37,7 +37,7 @@ mongo:
   address: [ openim-mongodb.openim-dependencies.svc.cluster.local:27017 ]
   database: openIM_v3
   username: root
-  password: openIM123
+  password: 'openIM123'
   maxPoolSize: 100
   # dbUri: ""#当dbUri值不为空则直接使用该值
   # dbAddress: [ mongo-shared-cluster-mongodb-sharded.mongo.svc.cluster.local:27017 ]  #单机时为mongo地址，使用分片集群时，为mongos地址 默认即可
