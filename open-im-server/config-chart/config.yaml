@@ -11,7 +11,7 @@ zookeeper:
   password:
 
 mysql:
-  address: [ openim-mysql.openim-dependencies.svc.cluster.local:2181:3306 ]
+  address: [ openim-mysql.openim-dependencies.svc.cluster.local:3306 ]
   username: root
   password: openIM123
   database: openIM_v3
