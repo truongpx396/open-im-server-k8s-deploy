@@ -249,7 +249,7 @@ secret: tuoyun
 multiloginpolicy: 1
 
 #msg log insert to db
-chatpersistencemysql: true
+chatPersistenceMysql: true
 #消息缓存时间
 msgCacheTimeout: 86400
 #群聊已读开启
