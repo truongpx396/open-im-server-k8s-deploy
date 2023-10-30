@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: rpc-friend
-        image: truongpx396/openim-dev-rpc_friend:98412d1c-31
+        image: truongpx396/openim-dev-rpc_friend:98c15b5c-53
         imagePullPolicy: Always
         # command: ["./open_im_friend"]
         # args: ["--port", "10120", "--prometheus_port","20120"]

@@ -56,7 +56,7 @@ spec:
           projected:
             sources:
             - configMap:
-                name: openim
+                name: config
             - configMap:
                 name: notification
       affinity:
