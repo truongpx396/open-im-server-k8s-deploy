@@ -14,7 +14,7 @@ spec:
         app: group 
     spec:
       containers:
-      - name: rpc_group
+      - name: rpc-group
         image: truongpx396/openim-dev-rpc_group:9d4e543c-37
         imagePullPolicy: Always
         # command: ["./open_im_group"]

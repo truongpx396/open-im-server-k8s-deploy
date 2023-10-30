@@ -14,7 +14,7 @@ spec:
         app: conversation
     spec:
       containers:
-        - name: rpc_conversation
+        - name: rpc-conversation
           image: truongpx396/openim-dev-rpc_conversation:5fcf641c-36
           imagePullPolicy: Always
           # command: ["./open_im_conversation"]

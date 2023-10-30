@@ -14,7 +14,7 @@ spec:
         app: friend 
     spec:
       containers:
-      - name: rpc_friend
+      - name: rpc-friend
         image: truongpx396/openim-dev-rpc_friend:98412d1c-31
         imagePullPolicy: Always
         # command: ["./open_im_friend"]

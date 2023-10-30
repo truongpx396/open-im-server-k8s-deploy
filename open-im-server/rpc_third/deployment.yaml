@@ -14,7 +14,7 @@ spec:
         app: third
     spec:
       containers:
-      - name: rpc_third
+      - name: rpc-third
         image: truongpx396/openim-dev-rpc_third:b5fa96bd-43
         imagePullPolicy: Always
         # command: ["./open_im_third"]

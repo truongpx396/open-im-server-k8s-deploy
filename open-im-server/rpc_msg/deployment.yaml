@@ -14,7 +14,7 @@ spec:
         app: msg 
     spec:
       containers:
-      - name: rpc_msg
+      - name: rpc-msg
         image: truongpx396/openim-dev-rpc_msg:9d4e543c-38
         # command: ["./open_im_msg"]
         # args: ["--port", "10130", "--prometheus_port","20130"]
