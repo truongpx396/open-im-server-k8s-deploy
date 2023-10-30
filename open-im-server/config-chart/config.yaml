@@ -64,26 +64,40 @@ redis:
   password: 'openIM123'
 
 kafka:
-  SASLUserName:
-  SASLPassword:
-  ws2mschat:
-    addr: [ kafka-cluster.kafka.svc.cluster.local:9092 ] #kafka配置，默认即可
-    topic: "ws2ms_chat" #用于mongo和mysql保存消息
-  msgtomongo:
-    addr: [ kafka-cluster.kafka.svc.cluster.local:9092 ] #kafka配置，默认即可
-    topic: "msg_to_mongo"
-  ms2pschat:
-    addr: [ kafka-cluster.kafka.svc.cluster.local:9092 ] #kafka配置，默认即可
-    topic: "ms2ps_chat" #消息push
-  msgtomodify:
-    addr: [ kafka-cluster.kafka.svc.cluster.local:9092 ] #kafka配置，默认即可
-    topic: "msg_to_modify"
-  consumergroupid:
-    msgToTransfer: mongo
-    msgToMongo: mongo_ex
+  username: ''
+  password: ''
+  addr: [ openim-kafka.openim-dependencies.svc.cluster.local:9092 ]
+  latestMsgToRedis:
+    topic: "latestMsgToRedis"
+  offlineMsgToMongo:
+    topic: "offlineMsgToMongoMysql"
+  msgToPush:
+    topic: "msgToPush"
+  consumerGroupID:
+    msgToRedis: redis
+    msgToMongo: mongo
     msgToMySql: mysql
     msgToPush: push
-    msgToModify: modify
+  # SASLUserName:
+  # SASLPassword:
+  # ws2mschat:
+  #   addr: [ kafka-cluster.kafka.svc.cluster.local:9092 ] #kafka配置，默认即可
+  #   topic: "ws2ms_chat" #用于mongo和mysql保存消息
+  # msgtomongo:
+  #   addr: [ kafka-cluster.kafka.svc.cluster.local:9092 ] #kafka配置，默认即可
+  #   topic: "msg_to_mongo"
+  # ms2pschat:
+  #   addr: [ kafka-cluster.kafka.svc.cluster.local:9092 ] #kafka配置，默认即可
+  #   topic: "ms2ps_chat" #消息push
+  # msgtomodify:
+  #   addr: [ kafka-cluster.kafka.svc.cluster.local:9092 ] #kafka配置，默认即可
+  #   topic: "msg_to_modify"
+  # consumergroupid:
+  #   msgToTransfer: mongo
+  #   msgToMongo: mongo_ex
+  #   msgToMySql: mysql
+  #   msgToPush: push
+  #   msgToModify: modify
 
 
 #---------------Internal service configuration---------------------#
