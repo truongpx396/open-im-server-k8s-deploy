@@ -17,8 +17,8 @@ spec:
       - name: push
         image: truongpx396/openim-dev-push:5fcf641c-35
         imagePullPolicy: Always
-        command: ["./open_im_push"]
-        args: ["--port", "10170", "--prometheus_port", "20170"]
+        # command: ["./open_im_push"]
+        # args: ["--port", "10170", "--prometheus_port", "20170"]
         ports:
         - containerPort: 10170
           name: push-port
@@ -36,7 +36,7 @@ spec:
         #   periodSeconds: 10
         volumeMounts:
           - name: config
-            mountPath: /Open-IM-Server/config
+            mountPath: /openim/config
             readOnly: true
         env:
           - name: CONFIG_NAME
@@ -46,8 +46,8 @@ spec:
             # memory: "512Mi"
             # cpu: 300m
           limits:
-            memory: "512Mi"
-            cpu: 300m
+            memory: "312Mi"
+            cpu: 200m
             # memory: "1024Mi"
             # cpu: 600m
       volumes:
@@ -55,9 +55,9 @@ spec:
           projected:
             sources:
             - configMap:
-                name: openim-config
+                name: config
             - configMap:
-                name: openim-notification-config
+                name: notification
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
