@@ -64,7 +64,7 @@ redis:
   password: 'openIM123'
 
 kafka:
-  username: ''
+  username: 'user1'
   password: ''
   addr: [ openim-kafka.openim-dependencies.svc.cluster.local:9092 ]
   latestMsgToRedis:
