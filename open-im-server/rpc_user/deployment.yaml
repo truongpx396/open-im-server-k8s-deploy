@@ -17,8 +17,8 @@ spec:
       - name: rpc_user
         image: truongpx396/openim-dev-rpc_user:9d4e543c-39
         imagePullPolicy: Always
-        command: ["./open_im_user"]
-        args: ["--port", "10110"]
+        # command: ["./open_im_user"]
+        # args: ["--port", "10110"]
         ports:
         - containerPort: 10110
           name: user-port
@@ -34,7 +34,7 @@ spec:
         #   periodSeconds: 10
         volumeMounts:
           - name: config
-            mountPath: /Open-IM-Server/config
+            mountPath: /openim/config
             readOnly: true
         env:
           - name: CONFIG_NAME
@@ -53,9 +53,9 @@ spec:
           projected:
             sources:
             - configMap:
-                name: openim-config
+                name: config
             - configMap:
-                name: openim-notification-config
+                name: notification
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

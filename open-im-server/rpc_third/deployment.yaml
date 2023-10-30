@@ -17,8 +17,8 @@ spec:
       - name: rpc_third
         image: truongpx396/openim-dev-rpc_third:b5fa96bd-43
         imagePullPolicy: Always
-        command: ["./open_im_third"]
-        args: ["--port", "10200", "--prometheus_port", "20170"]
+        # command: ["./open_im_third"]
+        # args: ["--port", "10200", "--prometheus_port", "20170"]
         ports:
         - containerPort: 10200
           name: third-port
@@ -34,7 +34,7 @@ spec:
         #   periodSeconds: 10
         volumeMounts:
           - name: config
-            mountPath: /Open-IM-Server/config
+            mountPath: /openim/config
             readOnly: true
         env:
           - name: CONFIG_NAME
@@ -53,9 +53,9 @@ spec:
           projected:
             sources:
             - configMap:
-                name: openim-config
+                name: config
             - configMap:
-                name: openim-notification-config
+                name: notification
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

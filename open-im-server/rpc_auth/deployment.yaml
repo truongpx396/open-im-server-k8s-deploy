@@ -17,14 +17,14 @@ spec:
       - name: rpc_auth
         image: truongpx396/openim-dev-rpc_auth:98412d1c-31
         imagePullPolicy: Always
-        command: ["./open_im_auth"]
-        args: ["--port", "10160"]
+        # command: ["./open_im_auth"]
+        # args: ["--port", "10160"]
         ports:
         - containerPort: 10160
           name: auth-rpc-port
         volumeMounts:
           - name: config
-            mountPath: /Open-IM-Server/config
+            mountPath: /openim/config
             readOnly: true
         # readinessProbe:
         #   exec:
@@ -53,9 +53,9 @@ spec:
           projected:
             sources:
             - configMap:
-                name: openim-config
+                name: openim
             - configMap:
-                name: openim-notification-config
+                name: notification
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
