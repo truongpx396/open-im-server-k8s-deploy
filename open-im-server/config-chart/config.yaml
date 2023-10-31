@@ -238,9 +238,13 @@ push:
     enable: false
 
 manager:
-  #app管理员userID和对应的secret  建议修改。 用于管理后台登录，也可以用户管理后台对应的api
-  appManagerUid: [ "openIM123456","openIM654321", "openIM333", "openIMAdmin" ]
-  nickname: [ "系统通知","openIM654321", "openIM333", "openIMAdmin" ]
+  userID: [ "openIM123456", "openIM654321", "openIMAdmin" ]
+  nickname: [ "system1", "system2", "system3" ]
+
+# manager:
+#   #app管理员userID和对应的secret  建议修改。 用于管理后台登录，也可以用户管理后台对应的api
+#   appManagerUid: [ "openIM123456","openIM654321", "openIM333", "openIMAdmin" ]
+#   nickname: [ "系统通知","openIM654321", "openIM333", "openIMAdmin" ]
 
 
 secret: tuoyun
