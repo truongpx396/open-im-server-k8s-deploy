@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: truongpx396/openim-dev-api:bd73661f-51
+        image: truongpx396/openim-dev-api:355074f8-59
         imagePullPolicy: Always
         ports:
         - containerPort: 10002
