@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: management-api-chat
-  replicas: 3 
+  replicas: 1 
   template:
     metadata:
       labels:
@@ -22,7 +22,7 @@ spec:
           name: api-chat-port
         volumeMounts:
           - name: config
-            mountPath: /openim-chat/config
+            mountPath: /openim/openim-chat/config
             readOnly: true
         # readinessProbe:
         #   httpGet:
@@ -41,13 +41,13 @@ spec:
         #     value: "/Open-IM-Server"
         resources:
           requests:
-            memory: "100Mi"
-            cpu: 70m
+            memory: "50Mi"
+            cpu: 30m
             # memory: "512Mi"
             # cpu: 300m
           limits:
-            memory: "250Mi"
-            cpu: 100m
+            memory: "100Mi"
+            cpu: 70m
             # memory: "1024Mi"
             # cpu: 600m
       volumes:
@@ -56,8 +56,6 @@ spec:
             sources:
             - configMap:
                 name: config
-            - configMap:
-                name: notification
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -68,7 +66,7 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - api
+                  - management-api-chat
               topologyKey: kubernetes.io/hostname
   strategy: 
     type: RollingUpdate
@@ -76,13 +74,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: api
+  name: management-api-chat
 spec:
   ports:
-    - name: api-svc-port
+    - name: api-chat-svc-port
       protocol: TCP
-      port: 10002
-      targetPort: api-port
+      port: 10008
+      targetPort: api-chat-port
   selector:
-    app: api
+    app: management-api-chat
   type: ClusterIP  

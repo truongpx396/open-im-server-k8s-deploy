@@ -47,8 +47,8 @@ spec:
               cpu: 70m
               memory: 100Mi
           limits:
-            memory: "256Mi"
-            cpu: 150m
+            memory: "150Mi"
+            cpu: 100m
             # memory: "512Mi"
             # cpu: 300m
       volumes:

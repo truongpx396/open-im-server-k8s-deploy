@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# 需要先启动OpenIMServer
+# Need to start Openimserver first
 zookeeper:
   schema: openim
   zkAddr:
-    - 127.0.0.1:12181
+    - openim-zookeeper.openim-dependencies.svc.cluster.local:2181
   username: ""
   password: ""
 
@@ -29,8 +29,8 @@ adminApi:
   listenIP:
 
 rpc:
-  registerIP: 127.0.0.1                            #When starting as RPC, register to the ip of Zookeeper, API/Gateway can access the port in this IP and the corresponding RPCPORT
-  listenIP:                              #Declars 0.0.0.0
+  registerIP:                          #When starting as RPC, register to the ip of Zookeeper, API/Gateway can access the port in this IP and the corresponding RPCPORT
+  listenIP: 0.0.0.0                             #Declars 0.0.0.0
 
 rpcPort:
   openImAdminPort: [ 30200 ]
@@ -39,28 +39,27 @@ rpcRegisterName:
   openImAdminName: admin
   openImChatName: chat
 
-# 没有配置表示和OpenIM一致
 mysql:
-  address: [ 127.0.0.1:13306 ]
+  address: [ openim-mysql.openim-dependencies.svc.cluster.local:3306 ]
   username: root
   password: openIM123
-  #  address: [ 127.0.0.1:13306 ]            #目前仅支持单机
-  #  username: root                          #用户名
-  #  password: openIM123                     #密码
-  #  database: openIM_v2                     #不建议修改
-  #  maxOpenConn: 1000                       #最大连接数
-  #  maxIdleConn: 100                        #最大空闲连接数
-  #  maxLifeTime: 60                         #连接可以重复使用的最长时间（秒）
-  #  logLevel: 4                             #日志级别 1=slient 2=error 3=warn 4=info
-  #  slowThreshold: 500                      #慢语句阈值 （毫秒）
+  #  address: [ 127.0.0.1:13306 ]            #Currently only support single machine
+  #  username: root                         #username
+  #  password: openIM123                    #password
+  #  database: openIM_v2                    #Not recommended to modify
+  #  maxOpenConn: 1000                      #Maximum connection number
+  #  maxIdleConn: 100                       #idle
+  #  maxLifeTime: 60                         #The longest time (second) that can be reused (second)
+  #  logLevel: 4                            #Level 1 = slient 2 = error 3 = warn 4 = info
+  #  slowThreshold: 500                      #Threshold (millisecond)
   database: openim_enterprise
 
-# 没有配置表示和OpenIM一致
+# No configuration representation is consistent with Openim
 log:
-  storageLocation: ../logs/           #存放目录
-#  rotationTime: 24                    #日志旋转时间
-#  remainRotationCount: 2              #日志数量
-#  remainLogLevel: 6                   #日志级别 6表示全都打印，
+  storageLocation: ../logs/         # #live
+#  rotationTime: 24                    #Time
+#  remainRotationCount: 2             #Log quantity
+#  remainLogLevel: 6                  #Level 6 indicates all printed,
 #  isStdout: false
 #  isJson: false
 #  withStack: false
@@ -90,11 +89,11 @@ verifyCode:
     smtpAddr: "smtp.qq.com"  # SMTP server address
     smtpPort: 25   # smtp Server mail sending port
   testDepartMentID: 001
-  imAPIURL: http://127.0.0.1:10002
+  imAPIURL: http://api.openim.svc.cluster.local:10002
 
 
-# 获取ip的header,没有配置直接获取远程地址
-#proxyHeader: "X-Forwarded-For"
+# Get the IP header, and directly get the remote address without configuration
+#Proxyheader: "X-FORWARDED-For"
 
 adminList:
   - adminID: admin1
@@ -108,7 +107,7 @@ adminList:
     imAdmin: openIMAdmin
 
 
-openIMUrl: "http://127.0.0.1:10002"
+openIMUrl: "http://api.openim.svc.cluster.local:10002"
 
 redis:
   # address: [ 127.0.0.1:16379 ]

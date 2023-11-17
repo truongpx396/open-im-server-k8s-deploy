@@ -2,44 +2,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: msg-transfer-deployment
+  name: management-rpc-admin-deployment
 spec:
   selector:
     matchLabels:
-      app: msg-transfer 
-  # replicas: 12 
-  replicas: 3
+      app: management-rpc-admin
+  replicas: 1 
   template:
     metadata:
       labels:
-        app: msg-transfer
+        app: management-rpc-admin 
     spec:
       containers:
-      - name: msg-transfer
-        image: truongpx396/openim-dev-msg_transfer:5fcf641c-34
-        # command: ["./open_im_msg_transfer"]
-        # args: ["--prometheus_port", "21400"]
+      - name: management-rpc-admin
+        image: truongpx396/openim-mgmt-dev-rpc-admin:6ab4e04-4
         imagePullPolicy: Always
         ports:
-        - name: tran-prome-port
-          containerPort: 21400
+        - containerPort: 30200
+          name: rpc-admin-port
         volumeMounts:
           - name: config
-            mountPath: /openim/config
+            mountPath: /openim/openim-chat/config
             readOnly: true
-        env:
-          - name: CONFIG_NAME
-            value: "/Open-IM-Server"
         resources:
-          # requests:
-          #   memory: "512Mi"
-          #   cpu: 300m
           requests:
-              cpu: 70m
-              memory: 100Mi
+            memory: "50Mi"
+            cpu: 30m
+            # memory: "512Mi"
+            # cpu: 300m
           limits:
-            memory: "300Mi"
-            cpu: 180m
+            memory: "100Mi"
+            cpu: 70m
             # memory: "1024Mi"
             # cpu: 600m
       volumes:
@@ -48,8 +41,6 @@ spec:
             sources:
             - configMap:
                 name: config
-            - configMap:
-                name: notification
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -60,7 +51,21 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - msg-transfer
+                  - management-rpc-admin
               topologyKey: kubernetes.io/hostname
-  strategy:
-    type: RollingUpdate 
+  strategy: 
+    type: RollingUpdate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: management-rpc-admin
+spec:
+  ports:
+    - name: rpc-admin-svc-port
+      protocol: TCP
+      port: 30200
+      targetPort: rpc-admin-port
+  selector:
+    app: management-rpc-admin
+  type: ClusterIP  
