@@ -18,11 +18,11 @@ spec:
         image: truongpx396/openim-mgmt-dev-api-chat:6ab4e04-4
         imagePullPolicy: Always
         ports:
-        - containerPort: 10002
-          name: api-port
+        - containerPort: 10008
+          name: api-chat-port
         volumeMounts:
           - name: config
-            mountPath: /openim/config
+            mountPath: /openim-chat/config
             readOnly: true
         # readinessProbe:
         #   httpGet:
@@ -36,9 +36,9 @@ spec:
         #     port: 10002
         #   initialDelaySeconds: 10
         #   periodSeconds: 10
-        env:
-          - name: CONFIG_NAME
-            value: "/Open-IM-Server"
+        # env:
+        #   - name: CONFIG_NAME
+        #     value: "/Open-IM-Server"
         resources:
           requests:
             memory: "100Mi"
