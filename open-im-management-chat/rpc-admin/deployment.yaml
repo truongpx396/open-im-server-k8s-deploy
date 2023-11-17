@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: management-rpc-admin
-        image: truongpx396/openim-mgmt-dev-rpc-admin:6ab4e04-4
+        image: truongpx396/openim-mgmt-dev-rpc-admin:6746fda-7
         imagePullPolicy: Always
         ports:
         - containerPort: 30200
