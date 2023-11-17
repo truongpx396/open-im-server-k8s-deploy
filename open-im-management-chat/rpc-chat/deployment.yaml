@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: management-rpc-chat
-        image: truongpx396/openim-mgmt-dev-rpc-chat:6ab4e04-4
+        image: truongpx396/openim-mgmt-dev-rpc-chat:6746fda-8
         imagePullPolicy: Always
         ports:
         - containerPort: 30300
