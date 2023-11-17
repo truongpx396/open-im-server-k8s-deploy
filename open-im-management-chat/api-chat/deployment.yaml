@@ -2,19 +2,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: management-api-admin-deployment
+  name: management-api-chat-deployment
 spec:
   selector:
     matchLabels:
-      app: management-api-admin
+      app: management-api-chat
   replicas: 3 
   template:
     metadata:
       labels:
-        app: management-api-admin 
+        app: management-api-chat 
     spec:
       containers:
-      - name: management-api-admin
+      - name: management-api-chat
         image: truongpx396/openim-dev-api:355074f8-59
         imagePullPolicy: Always
         ports:
