@@ -250,7 +250,7 @@ extraEnvVarsCM:
 extraEnvVarsSecret:
 
 ## @param mongodbServer MongoDB host name or IP address
-mongodbServer: mongodb
+mongodbServer: openim-mongodb.openim-dependencies.svc.cluster.local
 
 ## @param mongodbPort MongoDB port
 mongodbPort: 27017
@@ -262,7 +262,7 @@ mongodbEnableAdmin: false
 mongodbAdminUsername: root
 
 ## @param mongodbAdminPassword Administrator password
-mongodbAdminPassword: ""
+mongodbAdminPassword: "openIM123"
 
 ## @param mongodbAuthDatabase Database name (only needed if `mongodbEnableAdmin` is `false`)
 mongodbAuthDatabase: ""
