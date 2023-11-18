@@ -14,12 +14,12 @@ nameOverride: ""
 fullnameOverride: ""
 redis:
   # Specifies a single Redis host
-  #host: "redis-master"
+  host: "openim-redis-master.openim-dependencies.svc.cluster.local"
 
-  #port: 6379
+  port: 6379
 
   # Specifies redis password
-  #password: "Something"
+  password: "openIM123"
 
   # Specifies multiple redis endpoints <label:host:port>,...
   #hosts: "local:localhost:6379,myredis:10.10.20.30"
