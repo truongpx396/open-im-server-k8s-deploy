@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: management-api-chat
-        image: truongpx396/openim-mgmt-dev-api-chat:6b220df-9
+        image: truongpx396/openim-mgmt-dev-api-chat:f23e1dc-10
         imagePullPolicy: Always
         ports:
         - containerPort: 10008
