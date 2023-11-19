@@ -35,7 +35,7 @@ zoonavigator:
     HTTP_PORT: 9000
 
     CONNECTION_LOCALZK_NAME: LocalZooKeeper
-    CONNECTION_LOCALZK_CONN: penim-zookeeper.openim-dependencies.svc.cluster.local:2181
+    CONNECTION_LOCALZK_CONN: openim-zookeeper.openim-dependencies.svc.cluster.local:2181
 
     ## env.HTTPS_PORT -- If set, HTTPS server will bind to this port.
     # HTTPS_PORT:
