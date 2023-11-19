@@ -282,7 +282,7 @@ mongodbAuthUsername: ""
 mongodbAuthPassword: ""
 
 ## @param siteBaseUrl Set the express baseUrl to ease mounting at a subdirectory
-siteBaseUrl: /
+siteBaseUrl: openim-data-viewer-mongo-express.openim-data-viewer.svc.cluster.local/
 
 ## @param siteCookieSecret String used by cookie-parser middleware to sign cookies (Random 32 character long alphanumeric string if not set)
 siteCookieSecret: ""
