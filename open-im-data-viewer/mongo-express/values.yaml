@@ -102,7 +102,7 @@ containerPorts:
 
 livenessProbe:
   ## @param livenessProbe.enabled Enable liveness probe
-  enabled: true
+  enabled: false
 
   ## @param livenessProbe.initialDelaySeconds Delay before the liveness probe is initiated
   initialDelaySeconds: 0
@@ -121,7 +121,7 @@ livenessProbe:
 
 readinessProbe:
   ## @param readinessProbe.enabled Enable readiness probe
-  enabled: true
+  enabled: false
 
   ## @param readinessProbe.initialDelaySeconds Delay before the readiness probe is initiated
   initialDelaySeconds: 0
@@ -282,7 +282,7 @@ mongodbAuthUsername: ""
 mongodbAuthPassword: ""
 
 ## @param siteBaseUrl Set the express baseUrl to ease mounting at a subdirectory
-siteBaseUrl: openim-data-viewer-mongo-express.openim-data-viewer.svc.cluster.local/
+siteBaseUrl: /
 
 ## @param siteCookieSecret String used by cookie-parser middleware to sign cookies (Random 32 character long alphanumeric string if not set)
 siteCookieSecret: ""
