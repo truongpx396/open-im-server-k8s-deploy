@@ -32,7 +32,10 @@ zoonavigator:
   env:
     ## -- Server settings
     ## env.HTTP_PORT -- Tells the HTTP server which port to bind to. To disable HTTP set this variable to disabled.
-    HTTP_PORT: openim-zookeeper.openim-dependencies.svc.cluster.local:2181
+    HTTP_PORT: 9000
+
+    CONNECTION_LOCALZK_NAME: LocalZooKeeper
+    CONNECTION_LOCALZK_CONN: penim-zookeeper.openim-dependencies.svc.cluster.local:2181
 
     ## env.HTTPS_PORT -- If set, HTTPS server will bind to this port.
     # HTTPS_PORT:
