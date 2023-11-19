@@ -239,7 +239,15 @@ extraArgs: {}
   # name: ""
 
 ## @param extraEnvVars Additional container environment variables
-extraEnvVars: []
+extraEnvVars: 
+  # - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+  #   value: "root"  
+  # - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+  #   value: "12" 
+  # - name: ME_CONFIG_MONGODB_PORT
+  #   value: "12"   
+  # - name: ME_CONFIG_MONGODB_SERVER
+  #   value: "12"  
   # - name: MY-NAME
   #   value: "MY-VALUE"
 
@@ -256,7 +264,7 @@ mongodbServer: openim-mongodb.openim-dependencies.svc.cluster.local
 mongodbPort: 27017
 
 ## @param mongodbEnableAdmin Enable administrator access
-mongodbEnableAdmin: false
+mongodbEnableAdmin: true
 
 ## @param mongodbAdminUsername Administrator username
 mongodbAdminUsername: root
