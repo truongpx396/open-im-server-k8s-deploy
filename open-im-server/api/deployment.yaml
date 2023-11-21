@@ -41,13 +41,13 @@ spec:
             value: "/Open-IM-Server"
         resources:
           requests:
-            memory: "100Mi"
             cpu: 50m
+            memory: "60Mi"
             # memory: "512Mi"
             # cpu: 300m
           limits:
-            memory: "150Mi"
             cpu: 80m
+            memory: "80Mi"
             # memory: "1024Mi"
             # cpu: 600m
       volumes:

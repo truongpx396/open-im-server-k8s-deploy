@@ -49,11 +49,11 @@ spec:
             value: "/Open-IM-Server"
         resources:
           requests:
-            memory: "200Mi"
             cpu: 150m
+            memory: "100Mi"
           limits:
-            memory: "300Mi"
             cpu: 200m
+            memory: "120Mi"
             # memory: "1024Mi"
             # cpu: 600m
       volumes:
