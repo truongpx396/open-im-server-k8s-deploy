@@ -23,7 +23,7 @@ spec:
         - containerPort: 10120
           name: friend-port
         - containerPort: 20120
-          name: friend-prom-port  
+          name: prom-port  
         # readinessProbe:
         #   exec:
         #     command: ["/bin/grpc_health_probe", "-addr=:10120"]
@@ -89,7 +89,7 @@ spec:
     - name: friend-prom-port
       protocol: TCP
       port: 20120
-      targetPort: friend-prom-port
+      targetPort: prom-port
   selector:
     app: friend
   type: ClusterIP  
