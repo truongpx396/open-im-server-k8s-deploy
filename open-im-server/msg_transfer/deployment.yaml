@@ -21,7 +21,7 @@ spec:
         # args: ["--prometheus_port", "21400"]
         imagePullPolicy: Always
         ports:
-        - name: tran-prome-port
+        - name: prom-port
           containerPort: 21400
         volumeMounts:
           - name: config
@@ -65,3 +65,17 @@ spec:
               topologyKey: kubernetes.io/hostname
   strategy:
     type: RollingUpdate 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: msg-transfer
+spec:
+  ports:
+    - name: msg-transfer-prom-port
+      protocol: TCP
+      port: 21400
+      targetPort: prom-port
+  selector:
+    app: push
+  type: ClusterIP  

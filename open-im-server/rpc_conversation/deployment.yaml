@@ -23,7 +23,7 @@ spec:
             - containerPort: 10230
               name: con-port
             - containerPort: 20230
-              name: con-prome-port
+              name: con-prom-port
           # readinessProbe:
           #   exec:
           #     command: ["/bin/grpc_health_probe", "-addr=:10230"]
@@ -86,6 +86,10 @@ spec:
       protocol: TCP
       port: 10230
       targetPort: con-port
+    - name: conversation-prom-port
+      protocol: TCP
+      port: 20230
+      targetPort: con-prom-port
   selector:
     app: conversation
   type: ClusterIP  

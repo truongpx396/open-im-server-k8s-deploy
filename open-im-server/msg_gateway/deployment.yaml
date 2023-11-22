@@ -24,8 +24,8 @@ spec:
           containerPort: 10140
         - name: ws-port
           containerPort: 10001
-        - name: mgw-prome-port
-          containerPort: 20240
+        - name: prom-port
+          containerPort: 20140
         # readinessProbe:
         #   tcpSocket:
         #     port: 10001
@@ -93,6 +93,10 @@ spec:
       protocol: TCP
       port: 10140
       targetPort: rpc-port
+    - name: msg-gateway-prom-port
+      protocol: TCP
+      port: 20140
+      targetPort: prom-port
   selector:
     app: msg-gateway
   type: ClusterIP   

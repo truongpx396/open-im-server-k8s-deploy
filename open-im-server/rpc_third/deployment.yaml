@@ -83,8 +83,12 @@ spec:
   ports:
     - name: third-svc-port
       protocol: TCP
-      port: 10200
+      port: 10190
       targetPort: third-port
+    # - name: third-prom-port
+    #   protocol: TCP
+    #   port: 20200
+    #   targetPort: third-prom-port
   selector:
     app: third
   type: ClusterIP  

@@ -346,7 +346,7 @@ rtc:
 
 # prometheusThe number of ports for each service monitoring needs to be consistent with RPC PORT
 prometheus:
-  enable: false
+  enable: true
   userPrometheusPort: [ 20110 ]
   friendPrometheusPort: [ 20120 ]
   messagePrometheusPort: [ 20130 ]
@@ -354,7 +354,7 @@ prometheus:
   groupPrometheusPort: [ 20150 ]
   authPrometheusPort: [ 20160 ]
   pushPrometheusPort: [ 20170 ]
-  conversationPrometheusPort: [ 20230 ]
+  conversationPrometheusPort: [ 20180 ]
   rtcPrometheusPort: [ 21300 ]
   messageTransferPrometheusPort: [ 21400, 21401, 21402, 21403 ] # The number of ports is consistent with the number
 

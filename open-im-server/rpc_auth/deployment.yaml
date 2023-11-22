@@ -22,6 +22,9 @@ spec:
         ports:
         - containerPort: 10160
           name: auth-rpc-port
+        - containerPort: 20160
+          name: auth-prom-port
+
         volumeMounts:
           - name: config
             mountPath: /openim/config
@@ -84,6 +87,10 @@ spec:
       protocol: TCP
       port: 10160
       targetPort: auth-port
+    - name: auth-prom-port
+      protocol: TCP
+      port: 20160
+      targetPort: auth-prom-port
   selector:
     app: auth 
   type: ClusterIP  

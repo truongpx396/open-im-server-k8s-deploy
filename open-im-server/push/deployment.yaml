@@ -23,7 +23,7 @@ spec:
         - containerPort: 10170
           name: push-port
         - containerPort: 20170
-          name: push-prome-port
+          name: push-prom-port
         # readinessProbe:
         #   exec:
         #     command: ["/bin/grpc_health_probe", "-addr=:10170"]
@@ -88,6 +88,10 @@ spec:
       protocol: TCP
       port: 10170
       targetPort: push-port
+    - name: push-prom-port
+      protocol: TCP
+      port: 20170
+      targetPort: push-prom-port
   selector:
     app: push
   type: ClusterIP  

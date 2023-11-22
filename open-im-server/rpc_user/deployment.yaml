@@ -22,6 +22,8 @@ spec:
         ports:
         - containerPort: 10110
           name: user-port
+        - containerPort: 20110
+          name: user-prom-port
         # readinessProbe:
         #   exec:
         #     command: ["/bin/grpc_health_probe", "-addr=:10110"]
@@ -86,6 +88,10 @@ spec:
       protocol: TCP
       port: 10110
       targetPort: user-port
+    - name: user-prom-port
+      protocol: TCP
+      port: 20110
+      targetPort: user-prom-port
   selector:
     app: user
   type: ClusterIP  

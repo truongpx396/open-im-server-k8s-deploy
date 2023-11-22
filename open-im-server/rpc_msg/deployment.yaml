@@ -23,7 +23,7 @@ spec:
         - containerPort: 10130
           name: msg-port
         - containerPort: 20130
-          name: msg-prome-port
+          name: msg-prom-port
         # readinessProbe:
         #   exec:
         #     command: ["/bin/grpc_health_probe", "-addr=:10130"]
@@ -88,6 +88,10 @@ spec:
       protocol: TCP
       port: 10130
       targetPort: msg-port
+    - name: msg-prom-port
+      protocol: TCP
+      port: 20130
+      targetPort: msg-prom-port
   selector:
     app: msg
   type: ClusterIP  
