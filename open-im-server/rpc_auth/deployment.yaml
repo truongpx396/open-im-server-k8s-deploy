@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: rpc-auth
-        image: truongpx396/openim-dev-rpc_auth:611a3585-57
+        image: truongpx396/openim-dev-rpc_auth:537e8ed6-63
         imagePullPolicy: Always
         # command: ["./open_im_auth"]
         # args: ["--port", "10160"]
