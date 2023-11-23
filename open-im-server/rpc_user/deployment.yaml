@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: rpc-user
-        image: truongpx396/openim-dev-rpc_user:9d4e543c-39
+        image: truongpx396/openim-dev-rpc_user:37405b73-65
         imagePullPolicy: Always
         # command: ["./open_im_user"]
         # args: ["--port", "10110"]
