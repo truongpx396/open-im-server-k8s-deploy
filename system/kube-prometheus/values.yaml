@@ -3328,6 +3328,11 @@ prometheus:
   # rtcPrometheusPort: [ 21300 ]
   # messageTransferPrometheusPort: [ 21400, 21401, 21402, 21403 ]
     additionalScrapeConfigs: 
+      - job_name: api
+        scrape_interval: 10s
+        static_configs:
+        - targets:
+          - api.openim.svc.cluster.local:10002
       - job_name: rpc-user
         scrape_interval: 10s
         static_configs:
