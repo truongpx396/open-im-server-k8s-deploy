@@ -3347,7 +3347,7 @@ prometheus:
         scrape_interval: 10s
         static_configs:
         - targets:
-          - message.openim.svc.cluster.local:20130
+          - msg.openim.svc.cluster.local:20130
       - job_name: msg-gateway
         scrape_interval: 10s
         static_configs:
