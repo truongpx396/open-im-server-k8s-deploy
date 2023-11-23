@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: rpc-msg
-        image: truongpx396/openim-dev-rpc_msg:9d4e543c-38
+        image: truongpx396/openim-dev-rpc_msg:bdfd5717-68
         # command: ["./open_im_msg"]
         # args: ["--port", "10130", "--prometheus_port","20130"]
         imagePullPolicy: Always
