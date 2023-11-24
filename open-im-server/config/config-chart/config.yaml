@@ -206,11 +206,11 @@ modulename: #Log file is named by the module, the default can be
   msgTransferName: msg_transfer
   pushName: push
 
-longconnsvr:
+longConnSvr:
   openImWsPort: [ 10001 ] # WS service port, you can default, you must open this port or do NGINX forwarding
-  websocketMaxConnNum: 10000
+  websocketMaxConnNum: 100000
   websocketMaxMsgLen: 4096
-  websocketTimeOut: 10
+  websocketTimeout: 10
 
 ## push can only open one enable representative opening
 push:
