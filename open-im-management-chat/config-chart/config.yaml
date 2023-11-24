@@ -64,9 +64,10 @@ log:
 #  isJson: false
 #  withStack: false
 
-# secret: openIM123
-#tokenPolicy:
-#  expire: 86400
+secret: openIM123
+
+tokenPolicy:
+  expire: 90
 
 verifyCode:
   validTime: 300 # Valid time of verification code

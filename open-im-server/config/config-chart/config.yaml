@@ -250,7 +250,7 @@ manager:
 #   nickname: [ "system notification","openIM654321", "openIM333", "openIMAdmin" ]
 
 
-secret: tuoyun
+secret: openIM123
 # Multi -end kicking strategy
 # 1：Multi -platform login: Android, iOS, Windows, MAC each platform can only be online.
 multiloginpolicy: 1
@@ -265,10 +265,10 @@ groupMessageHasReadReceiptEnable: true
 singleMessageHasReadReceiptEnable: true
 
 #token config
-tokenpolicy:
-  accessSecret: "OpenIM_server" #tokenGenerate correlation, default
+tokenPolicy:
+  # accessSecret: "OpenIM_server" #tokenGenerate correlation, default
   # Token effective time day as a unit
-  accessExpire: 90  #tokenExpired time (day) default
+  expire: 90  #tokenExpired time (day) default
 messageverify:
   friendVerify: false
 
