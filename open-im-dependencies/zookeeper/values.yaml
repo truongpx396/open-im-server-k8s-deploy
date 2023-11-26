@@ -318,7 +318,9 @@ lifecycleHooks: {}
 ## @param resources.requests.cpu The requested cpu for the ZooKeeper containers
 ##
 resources:
-  limits: {}
+  limits: 
+    memory: 248Mi
+    cpu: 256m
   requests:
     # memory: 256Mi
     # cpu: 250m
