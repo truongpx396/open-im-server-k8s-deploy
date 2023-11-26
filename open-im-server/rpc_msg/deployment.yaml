@@ -72,7 +72,7 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - group
+                  - msg
               topologyKey: kubernetes.io/hostname
   strategy:
     type: RollingUpdate

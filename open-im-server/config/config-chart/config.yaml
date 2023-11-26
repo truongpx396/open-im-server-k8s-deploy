@@ -269,7 +269,8 @@ tokenPolicy:
   # accessSecret: "OpenIM_server" #tokenGenerate correlation, default
   # Token effective time day as a unit
   expire: 90  #tokenExpired time (day) default
-messageverify:
+  
+messageVerify:
   friendVerify: false
 
 #iosSystem push sound and mark count
