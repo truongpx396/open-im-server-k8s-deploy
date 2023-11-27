@@ -140,7 +140,10 @@ tls:
 ##   - name: FOO
 ##     value: "bar"
 ##
-extraEnvVars: []
+extraEnvVars:
+  MINIO_ROOT_USER: root
+  MINIO_ROOT_PASSWORD: openIM123
+
 ## @param extraEnvVarsCM ConfigMap with extra environment variables
 ##
 extraEnvVarsCM: ""
