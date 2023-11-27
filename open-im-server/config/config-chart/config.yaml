@@ -150,7 +150,7 @@ object:
     dataBucket: "openim"
     # location: us-east-1
     endpoint: http://openim-minio.openim-dependencies.svc.cluster.local:9000 #Minio outer network IP IP is visited for the client
-    signEndpoint: "https://minio.k8s.magiclab396.com"
+    signEndpoint: "https://minio-api.k8s.magiclab396.com"
     # accessKeyID: admin
     # secretAccessKey: openIMExamplePwd
     accessKeyID: "root"
