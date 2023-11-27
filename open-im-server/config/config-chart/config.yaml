@@ -128,17 +128,34 @@ sdk:
 #Object storage service, the following configuration two selection, currently supports two types, Tencent Cloud and Minio, the two can be configured (if you use minio reference https://doc.rentsoft.cn/qa/minioBuild a minio server)
 credential: #Tencent COS, need to send pictures, videos, and files. Please apply for it by yourself. You must modify
 
-
+###################### Object configuration information ######################
+# Object storage configuration
+#
+# Use minio for object storage
+# API URL should be accessible by the app
+# It's not recommended to modify the bucket name
+# Endpoint should be accessible by the app
+# Session token
+# Configuration for Tencent COS
+# Configuration for Aliyun OSS
+# apiURL is the address of the api, the access address of the app, use s3 must be configured
+# minio.endpoint can be configured as an intranet address,
+# minio.signEndpoint is minio public network address
 object:
   enable: minio
-  apiURL: http://api.openim.svc.cluster.local:10002/third/object
+  # apiURL: http://api.openim.svc.cluster.local:10002/third/object
+  apiURL: http://api.openim.svc.cluster.local:10002
   minio: #Minio When sending pictures, videos, and files, please apply for it by yourself. You must modify it.The client initializes Initsdk, the Object_storage parameter is minio
-    tempBucket: "openim"
+    bucket: "openim"
     dataBucket: "openim"
-    location: us-east-1
+    # location: us-east-1
     endpoint: http://minio.minio.svc.cluster.local:9000 #Minio outer network IP IP is visited for the client
-    accessKeyID: admin
-    secretAccessKey: openIMExamplePwd
+    signEndpoint: "http://minio.minio.svc.cluster.local:9000"
+    # accessKeyID: admin
+    # secretAccessKey: openIMExamplePwd
+    accessKeyID: "root"
+    secretAccessKey: "openIM123"
+    publicRead: false
     isDistributedMod: false # Whether or not distributed multi-hard disk deployment default Docker-compose is false. If it is a multi-hard disk deployment, you need to modify it to True
   tENCENT:
     appID:
@@ -269,7 +286,7 @@ tokenPolicy:
   # accessSecret: "OpenIM_server" #tokenGenerate correlation, default
   # Token effective time day as a unit
   expire: 90  #tokenExpired time (day) default
-  
+
 messageVerify:
   friendVerify: false
 
