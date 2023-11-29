@@ -144,7 +144,7 @@ credential: #Tencent COS, need to send pictures, videos, and files. Please apply
 object:
   enable: minio
   # apiURL: http://api.openim.svc.cluster.local:10002/third/object
-  apiURL: http://api.openim.svc.cluster.local:10002
+  apiURL: https://openim.k8s.magiclab396.com
   minio: #Minio When sending pictures, videos, and files, please apply for it by yourself. You must modify it.The client initializes Initsdk, the Object_storage parameter is minio
     bucket: "openim"
     dataBucket: "openim"
